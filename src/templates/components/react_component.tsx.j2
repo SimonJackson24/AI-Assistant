@@ -1,0 +1,20 @@
+import React from 'react';
+{% if style.css_module %}
+import styles from './{{ name }}.module.css';
+{% endif %}
+
+{% if style.typescript %}
+interface {{ name }}Props {
+  {% for prop, type in props.items() %}
+  {{ prop }}: {{ type }};
+  {% endfor %}
+}
+{% endif %}
+
+export const {{ name }} = ({% if style.typescript %}props: {{ name }}Props{% else %}props{% endif %}) => {
+  return (
+    <div {% if style.css_module %}className={styles.container}{% endif %}>
+      {/* Component content */}
+    </div>
+  );
+}; 

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo "Running pre-commit checks..."
+
+# Run black
+echo "Running black..."
+black . || exit 1
+
+# Run isort
+echo "Running isort..."
+isort . || exit 1
+
+# Run mypy
+echo "Running mypy..."
+mypy src/ || exit 1
+
+# Run tests
+echo "Running tests..."
+pytest || exit 1
+
+echo -e "${GREEN}All checks passed!${NC}" 

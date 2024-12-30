@@ -1,0 +1,17 @@
+from typing import Dict, Any, Optional
+
+class {{ name }}:
+    """
+    {{ docstring }}
+    """
+    
+    def __init__(self{% for arg, type in init_args.items() %}, {{ arg }}: {{ type }}{% endfor %}):
+        {% for arg in init_args %}
+        self.{{ arg }} = {{ arg }}
+        {% endfor %}
+        
+    {% for method in methods %}
+    def {{ method.name }}(self{% for arg, type in method.args.items() %}, {{ arg }}: {{ type }}{% endfor %}) -> {{ method.return_type }}:
+        """{{ method.docstring }}"""
+        {{ method.body | indent(8) }}
+    {% endfor %} 

@@ -1,0 +1,38 @@
+{
+    "class": {
+        "template": "class {name}:\n    \"\"\"{docstring}\"\"\"\n\n    def __init__(self{params}):\n        {init_body}\n\n{methods}",
+        "method_template": "    def {name}(self{params}) -> {return_type}:\n        \"\"\"{docstring}\"\"\"\n        {body}",
+        "patterns": {
+            "data_class": {
+                "imports": ["from dataclasses import dataclass"],
+                "decorators": ["@dataclass"],
+                "attributes": true
+            },
+            "async_class": {
+                "imports": ["import asyncio"],
+                "method_prefix": "async",
+                "return_annotation": "Awaitable"
+            }
+        }
+    },
+    "function": {
+        "template": "def {name}({params}) -> {return_type}:\n    \"\"\"{docstring}\"\"\"\n    {body}",
+        "patterns": {
+            "async_function": {
+                "prefix": "async",
+                "imports": ["import asyncio"],
+                "return_annotation": "Awaitable"
+            },
+            "generator": {
+                "yield_statement": true,
+                "return_annotation": "Generator"
+            }
+        }
+    },
+    "common_imports": {
+        "typing": ["Dict", "List", "Optional", "Any", "Union"],
+        "async": ["asyncio", "aiohttp"],
+        "data": ["dataclasses", "json"],
+        "system": ["os", "sys", "pathlib"]
+    }
+} 
